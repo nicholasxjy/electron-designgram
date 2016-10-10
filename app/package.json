@@ -1,0 +1,16 @@
+{
+  "name": "electron-vue-demo",
+  "version": "0.0.0",
+  "description": "An electron-vue project",
+  "main": "electron.js",
+  "dependencies": {
+    "axios": "^0.14.0",
+    "normalize-css": "^2.3.1",
+    "vue": "^2.0.1",
+    "vue-electron": "^1.0.0",
+    "vue-router": "^2.0.0",
+    "vuex": "^2.0.0"
+  },
+  "devDependencies": {},
+  "author": "nicholasxjy <yitaqi2011@gmail.com>"
+}
