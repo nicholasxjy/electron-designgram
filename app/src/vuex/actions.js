@@ -1,9 +1,24 @@
 import * as types from './mutation-types'
 
-export const decrementMain = ({ commit }) => {
-  commit(types.DECREMENT_MAIN_COUNTER)
+//user
+export const fetchingCurrentUser = ({commit}) => {
+  commit(types.FETCHING_CURRENT_USER);
+}
+export const fetchedCurrentUser = ({commit}, user) => {
+  commit(types.FETCHED_CURRENT_USER_OK, user);
+}
+export const fetchedCurrentUserFail = ({commit}, err) => {
+  commit(types.FETCHED_CURRENT_USER_FAIL, err);
 }
 
-export const incrementMain = ({ commit }) => {
-  commit(types.INCREMENT_MAIN_COUNTER)
+//feed
+export const fetchingFeeds = ({commit}) => {
+  commit(types.FETCHING_FEEDS);
+}
+export const fetchedFeeds = ({commit}, feeds) => {
+  commit(types.FETCHED_FEEDS_OK, feeds);
+}
+
+export const fetchedFeedsFail = ({commit}, err) => {
+  commit(types.FETCHED_FEEDS_FAIL, err);
 }

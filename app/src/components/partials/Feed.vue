@@ -1,14 +1,15 @@
 <template>
   <div class="dg-feed">
     <div class="dg-feed-inner">
-      <img src="http://7xj610.com1.z0.glb.clouddn.com/1C7C4EB4E1.jpg" alt="feed image" />
+      <img :src="feed.images.normal" alt="normal" />
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'feed'
+  name: 'feed',
+  props: ['feed']
 }
 </script>
 

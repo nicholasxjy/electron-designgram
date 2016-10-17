@@ -7,15 +7,13 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
     background-color: #f4f4f4;
     z-index: 1000;
   }
   .dg-home-content {
     position: relative;
-    margin-left: 200px;
     padding: 15px 20px;
-    overflow-y: scroll;
   }
   .dg-feeds {
     display: flex;
@@ -28,20 +26,10 @@
 
 <template>
   <div class="dg-home">
-    <side-bar></side-bar>
     <div class="dg-home-content">
       <search-bar></search-bar>
       <div class="dg-feeds">
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
-        <feed></feed>
+        <feed v-for="feed in feeds" :key="feed.id" :feed="feed"></feed>
       </div>
     </div>
   </div>
@@ -51,6 +39,9 @@
   import SideBar from './partials/SideBar';
   import SearchBar from './partials/SearchBar';
   import Feed from './partials/Feed';
+  import {fetchingFeeds, fetchedFeeds, fetchedFeedsFail} from '../vuex/actions';
+  import axios from 'axios';
+  import config from '../config';
 
   export default {
     components: {
@@ -58,6 +49,20 @@
       SearchBar,
       Feed
     },
-    name: 'home-page'
+    name: 'home-page',
+    created() {
+      this.$store.dispatch('fetchingFeeds');
+      axios.get(`${config.API_URL}/shots?access_token=${config.access_token}`).then(res => {
+        console.log(res);
+        this.$store.dispatch('fetchedFeeds', res.data);
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    computed: {
+      feeds() {
+        return this.$store.state.feed.feeds
+      }
+    }
   }
 </script>

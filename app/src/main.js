@@ -8,7 +8,7 @@ import routes from './routes'
 import '../node_modules/normalize-css/normalize.css'
 import './assets/app.css'
 
-Vue.use(Electron)
+Vue.use(Electron);
 Vue.use(Router)
 Vue.config.debug = true
 
