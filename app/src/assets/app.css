@@ -1,6 +1,9 @@
 html, body {
   height: 100%;
 }
+body {
+  font-family: 'PingFang SC', 'Helvetica Neue', 'Helvetica', 'STHeitiSC-Light', 'Arial', sans-serif;
+}
 .dg-btn {
     display: inline-block;
     zoom: 1;
@@ -91,4 +94,7 @@ a.dg-btn-primary,
 a.dg-btn-selected {
     background-color: rgb(0, 120, 231);
     color: #fff;
+}
+a {
+  text-decoration: none;
 }

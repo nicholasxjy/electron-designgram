@@ -9,6 +9,10 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
+    background-image: url('./assets/bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
   .landing-body {
     display: flex;
@@ -24,23 +28,17 @@
     justify-content: center;
   }
   .landing-logo {
-    width: 195px;
-    height: 33px;
     margin: 0;
-    background-image: url('./assets/Designgram.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    font-size: 40px;
+    color: #fff;
   }
   .landing-intro {
-    margin-top: 10px;
     font-size: 16px;
-    font-style: italic;
-    font-weight: 300;
-    color: #9b9b9b;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
   }
   .body-bottom {
-    margin-top: 60px;
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
     padding-left: 30px;
@@ -51,15 +49,15 @@
     padding: 1em 1em;
     margin-bottom: 20px;
     border-radius: 30px;
-    color: #ffffff;
+    color: rgba(255,255,255,0.7);
     font-size: 14px;
     font-weight: 400;
   }
   .dg-btn-dribbble {
-    background-color: #EA4C89;
+    background-color: #EC4989;
   }
   .dg-btn-behance {
-    background-color: #1996FC;
+    background-color: #1769FF;
   }
 </style>
 
@@ -68,14 +66,14 @@
     <div class="landing-page">
       <div class="landing-body">
         <div class="body-top">
-          <h1 class="landing-logo"></h1>
+          <h1 class="landing-logo">Designgram</h1>
           <div class="landing-intro">
             Design Stays Between our Things and Us
           </div>
         </div>
         <div class="body-bottom">
-          <router-link class="dg-btn dg-btn-dribbble" to="/home">LOG IN WITH DRIBBBLE</router-link>
-          <router-link class="dg-btn dg-btn-behance" to="/home">LOG IN WITH BEHANCE</router-link>
+          <router-link class="dg-btn dg-btn-dribbble" to="/home">Login with Dribbble</router-link>
+          <router-link class="dg-btn dg-btn-behance" to="/home">Login with Behance</router-link>
         </div>
       </div>
     </div>
