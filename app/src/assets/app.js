@@ -139,7 +139,8 @@ export default StyleSheet.create({
         "color": "#fff"
     },
     "a": {
-        "textDecoration": "none"
+        "textDecoration": "none",
+        "cursor": "pointer"
     },
     "ullist-unstyled": {
         "listStyle": "none",

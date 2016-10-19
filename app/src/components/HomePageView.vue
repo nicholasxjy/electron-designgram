@@ -13,6 +13,19 @@
     flex-wrap: wrap;
     justify-content: space-around;
   }
+  .load-more {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #aaa;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
 </style>
 
 <template>
@@ -22,6 +35,7 @@
       <div class="dg-feeds">
         <feed v-for="feed in feeds" :key="feed.id" :feed="feed"></feed>
       </div>
+      <a @click="loadMore" class="load-more">Load more</a>
     </div>
   </div>
 </template>
@@ -41,16 +55,28 @@
     name: 'home-page',
     data() {
       return {
-        feeds: []
+        feeds: [],
+        page: 1,
+        per_page: 12
       }
     },
     created() {
       axios.get(`${config.API_URL}/shots?access_token=${config.access_token}`).then(res => {
-        console.log(res);
         this.feeds = res.data;
+        this.page += 1;
       }).catch(err => {
         console.log(err);
-      })
+      });
+    },
+    methods: {
+      loadMore() {
+        axios.get(`${config.API_URL}/shots?access_token=${config.access_token}&page=${this.page}&per_page=${this.per_page}`).then(res => {
+          this.feeds = this.feeds.concat(res.data);
+          this.page += 1;
+        }).catch(err => {
+          console.log(err);
+        })
+      }
     }
   }
 </script>

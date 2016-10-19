@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="feed-image-container">
-                <img :src="feed.images.hidpi" :alt="`feed-${feed.id}`" />
+                <img :src="feed.images.normal" :alt="`feed-${feed.id}`" />
             </div>
         </div>
         <div class="feed-info-bar">

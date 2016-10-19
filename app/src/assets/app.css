@@ -97,6 +97,7 @@ a.dg-btn-selected {
 }
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 ul.list-unstyled {
   list-style: none;

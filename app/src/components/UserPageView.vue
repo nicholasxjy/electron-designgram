@@ -1,13 +1,15 @@
 <template>
-  <div class="dg-userpage">
-    <div class="dg-content">
-      <div class="user-container">
-        <user-info :user="user"></user-info>
-        <user-shots :shots="shots"></user-shots>
+  <transition name="side-in">
+      <div class="dg-userpage">
+        <div class="dg-content">
+          <div class="user-container">
+            <user-info :user="user"></user-info>
+            <user-shots :shots="shots"></user-shots>
+          </div>
+        </div>
+        <pop-back></pop-back>
       </div>
-    </div>
-    <pop-back></pop-back>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -59,4 +61,63 @@ export default {
   padding-top: 50px;
   padding-bottom: 50px;
 }
+
+
+.slide-in-enter-active {
+  animation: slideInRight 0.5s;
+}
+.slide-in-leave-active {
+  animation: slideOutRight 0.5s;
+}
+@-webkit-keyframes slideInRight {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes slideOutRight {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
 </style>
