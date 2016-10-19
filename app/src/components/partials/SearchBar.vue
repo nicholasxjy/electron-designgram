@@ -19,7 +19,7 @@
     flex: 1;
     outline: none;
     border: none;
-    background-color: #efefef;
+    background-color: #f4f4f4;
     padding: 10px 18px 10px 40px;
     border-radius: 5px;
     font-size: 14px;

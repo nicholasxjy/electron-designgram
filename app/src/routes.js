@@ -1,5 +1,6 @@
 import LandingPageView from './components/LandingPageView';
 import HomePageView from './components/HomePageView';
+import UserPageView from './components/UserPageView';
 
 export default [
   {
@@ -11,6 +12,11 @@ export default [
     path: '/home',
     name: 'home-page',
     component: HomePageView
+  },
+  {
+    path: '/users/:username',
+    name: 'user-page',
+    component: UserPageView
   },
   {
     path: '*',

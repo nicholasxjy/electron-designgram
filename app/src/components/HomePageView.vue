@@ -5,6 +5,7 @@
   }
   .dg-home-content {
     padding: 30px;
+    min-height: 800px;
   }
   .dg-feeds {
     display: flex;

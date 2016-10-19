@@ -1,10 +1,25 @@
 <template>
-  <div class="dg-feed">
+<div class="dg-feed">
     <div class="dg-feed-inner">
-      <img :src="feed.images.hidpi" :alt="`feed-${feed.id}`" />
-      <div class="feed-info-bar">
-        <div class="info-group">
-          <span class="info-item">
+        <div class="feed-image-wrap">
+            <div class="feed-detail">
+                <div class="detail-body">
+                    <div class="detail-top">
+                        <h3 class="title">{{feed.title}}</h3>
+                        <div class="feed-description">{{feed.description | restrictDesc | limitText}}</div>
+                    </div>
+                    <div class="detail-time">
+                        {{feed.created_at | formatTime}}
+                    </div>
+                </div>
+            </div>
+            <div class="feed-image-container">
+                <img :src="feed.images.hidpi" :alt="`feed-${feed.id}`" />
+            </div>
+        </div>
+        <div class="feed-info-bar">
+            <div class="info-group">
+                <span class="info-item">
             <svg width="14px" height="11px" viewBox="0 0 14 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="Home" transform="translate(-199.000000, -354.000000)" fill="#AAAAAA">
@@ -17,8 +32,8 @@
                 </g>
             </svg>
             <span class="views-count">{{feed.views_count}}</span>
-          </span>
-          <span class="info-item">
+                </span>
+                <span class="info-item">
             <svg class="comment-svg" width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                      <g id="Home" transform="translate(-252.000000, -354.000000)" fill="#AAAAAA">
@@ -31,8 +46,8 @@
                  </g>
              </svg>
             <span class="comments-count">{{feed.comments_count}}</span>
-          </span>
-          <span class="info-item">
+                </span>
+                <span class="info-item">
             <svg class="like-svg" width="14px" height="13px" viewBox="0 0 14 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                     <g id="Home" transform="translate(-295.000000, -353.000000)" fill="#AAAAAA">
@@ -45,80 +60,168 @@
                 </g>
             </svg>
             <span class="likes-count">{{feed.likes_count}}</span>
-          </span>
+                </span>
+            </div>
         </div>
-      </div>
     </div>
     <div class="feed-creator">
-      <div class="creator-info">
-        <a :href="feed.user.html_url" class="avatar-link">
-          <img :src="feed.user.avatar_url" :alt="feed.user.name" class="creator-avatar"/>
-        </a>
-        <a :href="feed.user.html_url" class="creator-link">{{feed.user.name}}</a>
-      </div>
+        <div class="creator-info">
+            <router-link :to="{name: 'user-page', params: {username: feed.user.username}}" class="avatar-link">
+              <img :src="feed.user.avatar_url" :alt="feed.user.name" class="creator-avatar" />
+            </router-link>
+            <router-link :to="{name: 'user-page', params: {username: feed.user.username}}" class="creator-link">{{feed.user.name}}</router-link>
+        </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
 export default {
-  name: 'feed',
-  props: ['feed']
+    name: 'feed',
+    props: ['feed'],
+    filters: {
+        restrictDesc(value) {
+            if (value && value.length > 0) {
+                return value.replace(/<(?:.|\n)*?>/gm, '');
+            }
+            return '';
+        },
+        limitText(value) {
+            return value.slice(0, 160) + '...';
+        },
+        formatTime(value) {
+            const monArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'];
+            const date = new Date(value);
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const day = date.getDate();
+            return `${monArr[month]} ${day}, ${year}`;
+        }
+    }
 }
 </script>
 
 <style scoped>
-  .dg-feed {
+.dg-feed {
     width: 31%;
     margin-bottom: 20px;
-  }
-  .dg-feed-inner {
+}
+
+.dg-feed-inner {
     border-radius: 2px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.07);
-    padding: 10px 10px 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
     background-color: #ffffff;
     margin-bottom: 10px;
-  }
-  .dg-feed-inner img {
+}
+
+.feed-image-wrap {
+    position: relative;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.feed-image-wrap:hover .feed-detail {
+    opacity: 1;
+    visibility: visible;
+}
+
+.feed-detail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.96);
+    padding: 15px 15px 10px;
+    transition: 300ms;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.detail-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.detail-top,
+.detail-time {
+    width: 100%;
+}
+.detail-time {
+  font-size: 12px;
+  color: #777;
+}
+
+.detail-body .title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+.feed-description {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+    line-height: 16px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.feed-image-container {
+    padding: 10px 10px 0;
+}
+
+.dg-feed-inner img {
     display: block;
     width: 100%;
-  }
-  .feed-info-bar {
+}
+
+.feed-info-bar {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-top: 5px;
-    padding-bottom: 7px;
-  }
-  .info-item {
+    padding: 5px 10px 7px;
+}
+
+.info-item {
     align-items: center;
     padding-left: 10px;
     font-size: 12px;
     color: #999;
-  }
-  .info-item .like-svg, .info-item .comment-svg {
+}
+
+.info-item .like-svg,
+.info-item .comment-svg {
     position: relative;
     top: 2px;
-  }
-  .creator-info {
+}
+
+.creator-info {
     display: flex;
     align-items: center;
     padding-left: 10px;
-  }
-  .creator-avatar {
+}
+
+.creator-avatar {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-  }
-  .avatar-link {
+}
+
+.avatar-link {
     display: block;
     width: 24px;
     height: 24px;
-  }
-  .creator-link {
+}
+
+.creator-link {
     padding-left: 10px;
     font-size: 13px;
     font-weight: 600;
     color: #3a8bbb;
-  }
+}
 </style>
